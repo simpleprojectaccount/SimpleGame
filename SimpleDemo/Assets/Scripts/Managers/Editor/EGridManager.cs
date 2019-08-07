@@ -89,24 +89,19 @@ namespace Vertigo.Managers
             var c = GUI.backgroundColor;
             GUI.backgroundColor = new Color(1, 0, 0, 0.5f);
             if (_gm.gridInfo.x < 2 || _gm.gridInfo.y < 2)
-            {
-                EditorGUILayout.BeginVertical("Box");
-                EditorGUILayout.LabelField("Grid height and width cannot be smaller than 2");
-                EditorGUILayout.EndVertical();
-                if (GUILayout.Button("Fix known errors"))
-                    FixKnownErrors();
-            }
+                WarningBox("Grid height and width cannot be smaller than 2");
             if (_colorCount <= 2)
-            {
-                EditorGUILayout.BeginVertical("Box");
-                EditorGUILayout.LabelField("At least 3 color has to be choosen.");
-                EditorGUILayout.EndVertical();
-                if (GUILayout.Button("Fix known errors"))
-                    FixKnownErrors();
-            }
-
+                WarningBox("At least 3 color has to be choosen.");
             GUI.backgroundColor = c;
+        }
 
+        private void WarningBox(string msg)
+        {
+            EditorGUILayout.BeginVertical("Box");
+            EditorGUILayout.LabelField(msg);
+            EditorGUILayout.EndVertical();
+            if (GUILayout.Button("Fix known errors"))
+                FixKnownErrors();
         }
 
         // Fix faulty settings by reseting them to default values
